@@ -44,7 +44,6 @@ from airflow import executors, models, settings
 from airflow.exceptions import AirflowException
 from airflow.jobs.base_job import BaseJob
 from airflow.models import DagRun, SlaMiss, errors
-from airflow.settings import Stats
 from airflow.ti_deps.dep_context import DepContext, SCHEDULEABLE_STATES, SCHEDULED_DEPS
 from airflow.ti_deps.deps.pool_slots_available_dep import STATES_TO_COUNT_AS_RUNNING
 from airflow.utils import asciiart, helpers, timezone
@@ -58,6 +57,11 @@ from airflow.utils.db import provide_session
 from airflow.utils.email import get_email_address_list, send_email
 from airflow.utils.log.logging_mixin import LoggingMixin, StreamLogWriter, set_context
 from airflow.utils.state import State
+
+try:
+    from airflow_local_settings import Stats
+except ImportError:
+    from airflow.settings import Stats
 
 
 class DagFileProcessor(AbstractDagFileProcessor, LoggingMixin):

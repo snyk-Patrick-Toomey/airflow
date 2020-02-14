@@ -35,7 +35,6 @@ from airflow.exceptions import (
     AirflowException,
 )
 from airflow.models.base import Base, ID_LEN
-from airflow.settings import Stats
 from airflow.utils import helpers, timezone
 from airflow.utils.db import create_session, provide_session
 from airflow.utils.helpers import convert_camel_to_snake
@@ -44,6 +43,10 @@ from airflow.utils.net import get_hostname
 from airflow.utils.sqlalchemy import UtcDateTime
 from airflow.utils.state import State
 
+try:
+    from airflow_local_settings import Stats
+except ImportError:
+    from airflow.settings import Stats
 
 class BaseJob(Base, LoggingMixin):
     """

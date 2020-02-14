@@ -23,9 +23,13 @@ from collections import OrderedDict
 # To avoid circular imports
 import airflow.utils.dag_processing
 from airflow.configuration import conf
-from airflow.settings import Stats
 from airflow.utils.log.logging_mixin import LoggingMixin
 from airflow.utils.state import State
+
+try:
+    from airflow_local_settings import Stats
+except ImportError:
+    from airflow.settings import Stats
 
 PARALLELISM = conf.getint('core', 'PARALLELISM')
 

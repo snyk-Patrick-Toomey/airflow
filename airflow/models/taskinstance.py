@@ -51,7 +51,6 @@ from airflow.models.taskreschedule import TaskReschedule
 from airflow.models.variable import Variable
 from airflow.models.xcom import XCom, XCOM_RETURN_KEY
 from airflow.sentry import Sentry
-from airflow.settings import Stats
 from airflow.ti_deps.dep_context import DepContext, REQUEUEABLE_DEPS, RUNNING_DEPS
 from airflow.utils import timezone
 from airflow.utils.db import provide_session
@@ -62,6 +61,11 @@ from airflow.utils.net import get_hostname
 from airflow.utils.sqlalchemy import UtcDateTime
 from airflow.utils.state import State
 from airflow.utils.timeout import timeout
+
+try:
+    from airflow_local_settings import Stats
+except ImportError:
+    from airflow.settings import Stats
 
 
 def clear_task_instances(tis,

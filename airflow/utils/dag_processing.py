@@ -48,7 +48,6 @@ import airflow.models
 from airflow.configuration import conf
 from airflow.dag.base_dag import BaseDag, BaseDagBag
 from airflow.exceptions import AirflowException
-from airflow.settings import Stats
 from airflow.models import errors
 from airflow.settings import STORE_SERIALIZED_DAGS
 from airflow.utils import timezone
@@ -56,6 +55,11 @@ from airflow.utils.helpers import reap_process_group
 from airflow.utils.db import provide_session
 from airflow.utils.log.logging_mixin import LoggingMixin
 from airflow.utils.state import State
+
+try:
+    from airflow_local_settings import Stats
+except ImportError:
+    from airflow.settings import Stats
 
 if six.PY2:
     ConnectionError = IOError
