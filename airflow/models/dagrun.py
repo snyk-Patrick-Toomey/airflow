@@ -28,13 +28,17 @@ from sqlalchemy.orm import synonym
 from sqlalchemy.orm.session import Session
 from airflow.exceptions import AirflowException
 from airflow.models.base import Base, ID_LEN
-from airflow.settings import Stats
 from airflow.ti_deps.dep_context import DepContext
 from airflow.utils import timezone
 from airflow.utils.db import provide_session
 from airflow.utils.log.logging_mixin import LoggingMixin
 from airflow.utils.sqlalchemy import UtcDateTime
 from airflow.utils.state import State
+
+try:
+    from airflow_local_settings import Stats
+except ImportError:
+    from airflow.settings import Stats
 
 
 class DagRun(Base, LoggingMixin):
