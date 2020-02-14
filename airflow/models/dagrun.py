@@ -344,7 +344,7 @@ class DagRun(Base, LoggingMixin):
             return
 
         duration = (self.end_date - self.start_date)
-        if self.state is State.SUCCESS:
+        if self.state == State.SUCCESS:
             Stats.timing('dagrun.duration.success.{}'.format(self.dag_id), duration)
         elif self.state == State.FAILED:
             Stats.timing('dagrun.duration.failed.{}'.format(self.dag_id), duration)
